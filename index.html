@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verduras El Campo</title>
+  <style>
+
+    /* ── RESET Y BASE ── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #212121;
+    }
+
+    /* ── NAVEGACIÓN ── */
+    nav {
+      background-color: #2E7D32;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    nav span {
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      margin-right: auto;
+    }
+
+    nav a {
+      color: #C8E6C9;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      background-color: #1B5E20;
+      color: white;
+      text-align: center;
+      padding: 64px 24px;
+    }
+
+    #hero h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    #hero p {
+      font-size: 16px;
+      color: #C8E6C9;
+      margin-bottom: 24px;
+    }
+
+    #hero a {
+      background-color: #25D366;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 99px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* ── SECCIONES GENERALES ── */
+    section {
+      padding: 48px 24px;
+    }
+
+    section h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: #1B5E20;
+    }
+
+    /* ── CATÁLOGO DE PRODUCTOS ── */
+    #productos {
+      background-color: #F9FBF7;
+    }
+
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .producto {
+      background: white;
+      border: 1px solid #E0E0E0;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .producto h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .precio {
+      font-size: 16px;
+      font-weight: bold;
+      color: #2E7D32;
+      margin-bottom: 8px;
+    }
+
+    .subtotal {
+      font-size: 12px;
+      color: #2E7D32;
+      margin-top: 6px;
+      min-height: 18px;
+    }
+
+    /* ── BADGES DE SUCURSAL ── */
+    .badge-ambas {
+      font-size: 11px;
+      background: #E3F2FD;
+      color: #1565C0;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .badge-s1 {
+      font-size: 11px;
+      background: #E8F5E9;
+      color: #2E7D32;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .badge-s2 {
+      font-size: 11px;
+      background: #FFF3E0;
+      color: #E65100;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* ── EMOJI DEL PRODUCTO ── */
+    .producto-emoji {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    /* ── CONTROLES DE CANTIDAD ── */
+    .qty-ctrl {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .qty-ctrl button {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid #BDBDBD;
+      background: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .qty-val {
+      font-size: 15px;
+      font-weight: bold;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* ── CARRITO ── */
+    #carrito {
+      margin-top: 32px;
+      border: 1px solid #E0E0E0;
+      border-radius: 12px;
+      padding: 20px;
+      background: white;
+      max-width: 400px;
+    }
+
+    #carrito p {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    #selector-sucursal p {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .btn-suc {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid #E0E0E0;
+      background: white;
+      cursor: pointer;
+      margin-right: 8px;
+      font-size: 13px;
+    }
+
+    .btn-suc.activo-1 {
+      background: #E8F5E9;
+      border-color: #2E7D32;
+      color: #2E7D32;
+      font-weight: bold;
+    }
+
+    .btn-suc.activo-2 {
+      background: #FFF3E0;
+      border-color: #E65100;
+      color: #E65100;
+      font-weight: bold;
+    }
+
+    #btn-whatsapp {
+      margin-top: 16px;
+      width: 100%;
+      padding: 12px;
+      background: #25D366;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #btn-whatsapp:disabled {
+      background: #BDBDBD;
+      cursor: not-allowed;
+    }
+
+    /* ── SUCURSALES ── */
+    #sucursales {
+      background-color: white;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    #sucursales h2 {
+      grid-column: 1 / -1;
+    }
+
+    .sucursal {
+      border: 1px solid #E0E0E0;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .sucursal h3 {
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      margin: -20px -20px 16px -20px;
+      padding: 12px 20px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .sucursal-1 h3 {
+      background: #2E7D32;
+    }
+
+    .sucursal-2 h3 {
+      background: #E65100;
+    }
+
+    .sucursal p {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    /* ── MAPA ── */
+    .mapa {
+      margin: 16px 0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /* ── BOTÓN WA POR SUCURSAL ── */
+    .btn-wa-sucursal {
+      display: block;
+      text-align: center;
+      background: #25D366;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .btn-wa-sucursal:hover {
+      background: #1DA851;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background-color: #1B5E20;
+      color: #A5D6A7;
+      text-align: center;
+      padding: 24px;
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    /* ── BOTÓN FLOTANTE ── */
+    #btn-flotante {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 999;
+      transition: transform 0.2s;
+    }
+
+    #btn-flotante:hover {
+      transform: scale(1.1);
+    }
+
+    /* ── RESPONSIVE MÓVIL ── */
+    @media (max-width: 600px) {
+
+      nav {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      nav span {
+        width: 100%;
+        margin-right: 0;
+      }
+
+      #hero h1 {
+        font-size: 24px;
+      }
+
+      #sucursales {
+        grid-template-columns: 1fr;
+      }
+
+      .catalogo {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      #carrito {
+        max-width: 100%;
+      }
+
+      #btn-flotante {
+        width: 48px;
+        height: 48px;
+        bottom: 16px;
+        right: 16px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ── NAVEGACIÓN ── -->
+  <nav>
+    <span>🥦 Verduras El Campo</span>
+    <a href="#productos">Productos</a>
+    <a href="#sucursales">Sucursales</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <h1>Frutas y verduras directo del campo</h1>
+    <p>Dos sucursales para servirte mejor</p>
+    <a href="#productos">Ver productos</a>
+  </section>
+
+  <!-- ── PRODUCTOS ── -->
+  <section id="productos">
+    <h2>Productos y precios</h2>
+    <div class="catalogo" id="catalogo">
+      <!-- Las tarjetas se generan automáticamente desde JavaScript -->
+    </div>
+
+    <!-- RESUMEN DEL CARRITO -->
+    <div id="carrito">
+      <p>Total: <strong id="total">₡0</strong></p>
+
+      <div id="selector-sucursal">
+        <p>¿A cuál sucursal le pedís?</p>
+        <button class="btn-suc" data-suc="1" data-telefono="50688881111">Sucursal 1</button>
+        <button class="btn-suc" data-suc="2" data-telefono="50688882222">Sucursal 2</button>
+      </div>
+
+      <button id="btn-whatsapp" disabled>Enviar pedido por WhatsApp</button>
+    </div>
+  </section>
+
+  <!-- ── SUCURSALES ── -->
+  <section id="sucursales">
+    <h2>Nuestras sucursales</h2>
+
+    <div class="sucursal sucursal-1">
+      <h3>Sucursal 1</h3>
+      <p>📍 100m norte del parque central</p>
+      <p>🕐 Lunes a Sábado, 6am – 6pm</p>
+      <p>📱 +506 8888-1111</p>
+      <div class="mapa">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.9!2d-84.0879!3d9.9281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwNTUnNDEuMiJOIDg0wrAwNSczNi40Ilc!5e0!3m2!1ses!2scr!4v1234567890"
+          width="100%"
+          height="200"
+          style="border:0; border-radius: 8px;"
+          allowfullscreen=""
+          loading="lazy">
+        </iframe>
+      </div>
+      <a class="btn-wa-sucursal" href="https://wa.me/50688881111" target="_blank">WhatsApp Sucursal 1</a>
+    </div>
+
+    <div class="sucursal sucursal-2">
+      <h3>Sucursal 2</h3>
+      <p>📍 Frente al supermercado BM</p>
+      <p>🕐 Lunes a Domingo, 7am – 5pm</p>
+      <p>📱 +506 8888-2222</p>
+      <div class="mapa">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.1!2d-84.0750!3d9.9340!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwNTUnNTQuNCJOIDg0wrAwNCczMC4wIlc!5e0!3m2!1ses!2scr!4v1234567891"
+          width="100%"
+          height="200"
+          style="border:0; border-radius: 8px;"
+          allowfullscreen=""
+          loading="lazy">
+        </iframe>
+      </div>
+      <a class="btn-wa-sucursal" href="https://wa.me/50688882222" target="_blank">WhatsApp Sucursal 2</a>
+    </div>
+
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer id="contacto">
+    <p>© 2025 Verduras El Campo</p>
+    <p>Escribinos por WhatsApp a cualquiera de nuestras sucursales</p>
+  </footer>
+
+  <!-- ── BOTÓN FLOTANTE WHATSAPP ── -->
+  <a id="btn-flotante" href="https://wa.me/50688881111" target="_blank" title="Escribinos por WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.528 5.855L0 24l6.335-1.508A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.001-1.37l-.36-.213-3.757.894.952-3.653-.234-.374A9.818 9.818 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/>
+    </svg>
+  </a>
+
+  <script>
+
+    // ══════════════════════════════════════
+    // URL DE GOOGLE SHEETS
+    // Cambiá esto por tu URL publicada
+    // ══════════════════════════════════════
+    const SHEETS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS7MQJsuL6rVxSBFTsHGQA-b9BURHit6V-uuBCNlOM2vndqKqjlLlRQCdZ3saECVGbWsndr--31wMlO/pub?gid=0&single=true&output=csv";
+
+    let PRODUCTOS = [];
+
+    // ══════════════════════════════════════
+    // ESTADO
+    // ══════════════════════════════════════
+    const carrito = {};
+    let sucursalSeleccionada = null;
+    let telefonoSeleccionado = null;
+
+    // ══════════════════════════════════════
+    // CARGA DESDE GOOGLE SHEETS
+    // ══════════════════════════════════════
+    function cargarProductos() {
+      document.getElementById("catalogo").innerHTML = "<p style='color:#888; padding:16px;'>Cargando productos...</p>";
+
+      fetch(SHEETS_URL)
+        .then(function(respuesta) {
+          return respuesta.text();
+        })
+        .then(function(csv) {
+          PRODUCTOS = parsearCSV(csv);
+          renderCatalogo();
+        })
+        .catch(function(error) {
+          document.getElementById("catalogo").innerHTML = "<p style='color:#C62828; padding:16px;'>Error al cargar productos. Intentá de nuevo.</p>";
+          console.error("Error:", error);
+        });
+    }
+
+    // ══════════════════════════════════════
+    // PARSEAR CSV
+    // ══════════════════════════════════════
+    function parsearCSV(csv) {
+      const lineas = csv.trim().split("\n");
+      const encabezados = lineas[0].split(",").map(function(h) {
+        return h.trim().replace(/"/g, "");
+      });
+
+      return lineas.slice(1).map(function(linea) {
+        const valores = linea.split(",").map(function(v) {
+          return v.trim().replace(/"/g, "");
+        });
+
+        const objeto = {};
+        encabezados.forEach(function(encabezado, i) {
+          objeto[encabezado] = valores[i];
+        });
+
+        objeto.id     = parseInt(objeto.id);
+        objeto.precio = parseInt(objeto.precio);
+
+        return objeto;
+      });
+    }
+
+    // ══════════════════════════════════════
+    // RENDER — genera tarjetas desde array
+    // ══════════════════════════════════════
+    function renderCatalogo() {
+      const contenedor = document.getElementById("catalogo");
+
+      contenedor.innerHTML = PRODUCTOS.map(function(p) {
+
+        const badgeTexto = p.sucursal === "ambas" ? "Ambas sucursales"
+                         : p.sucursal === "s1"    ? "Solo Sucursal 1"
+                         :                          "Solo Sucursal 2";
+
+        const badgeClase = p.sucursal === "ambas" ? "badge-ambas"
+                         : p.sucursal === "s1"    ? "badge-s1"
+                         :                          "badge-s2";
+
+        return `
+          <div class="producto" data-id="${p.id}">
+            <div class="producto-emoji">${p.emoji}</div>
+            <h3>${p.nombre}</h3>
+            <p class="precio">₡${p.precio.toLocaleString()} / ${p.unidad}</p>
+            <span class="${badgeClase}">${badgeTexto}</span>
+            <div class="qty-ctrl">
+              <button class="btn-menos">−</button>
+              <span class="qty-val">0</span>
+              <button class="btn-mas">+</button>
+            </div>
+            <p class="subtotal"></p>
+          </div>
+        `;
+      }).join("");
+
+      PRODUCTOS.forEach(function(p) {
+        carrito[p.id] = 0;
+      });
+
+      asignarEventos();
+    }
+
+    // ══════════════════════════════════════
+    // EVENTOS DE CANTIDAD
+    // ══════════════════════════════════════
+    function asignarEventos() {
+      document.querySelectorAll(".producto").forEach(function(productoEl) {
+        const id       = parseInt(productoEl.dataset.id);
+        const producto = PRODUCTOS.find(function(p) { return p.id === id; });
+        const btnMas   = productoEl.querySelector(".btn-mas");
+        const btnMenos = productoEl.querySelector(".btn-menos");
+        const qtyVal   = productoEl.querySelector(".qty-val");
+        const subtotal = productoEl.querySelector(".subtotal");
+
+        btnMas.addEventListener("click", function() {
+          carrito[id]++;
+          qtyVal.textContent = carrito[id];
+          subtotal.textContent = "₡" + (carrito[id] * producto.precio).toLocaleString();
+          actualizarTotal();
+        });
+
+        btnMenos.addEventListener("click", function() {
+          if (carrito[id] > 0) {
+            carrito[id]--;
+            qtyVal.textContent = carrito[id];
+            subtotal.textContent = carrito[id] > 0
+              ? "₡" + (carrito[id] * producto.precio).toLocaleString()
+              : "";
+            actualizarTotal();
+          }
+        });
+      });
+    }
+
+    // ══════════════════════════════════════
+    // TOTAL
+    // ══════════════════════════════════════
+    function actualizarTotal() {
+      const total = PRODUCTOS.reduce(function(suma, p) {
+        return suma + (carrito[p.id] * p.precio);
+      }, 0);
+
+      document.getElementById("total").textContent = "₡" + total.toLocaleString();
+      actualizarBotonWA();
+    }
+
+    // ══════════════════════════════════════
+    // SELECTOR DE SUCURSAL
+    // ══════════════════════════════════════
+    document.querySelectorAll(".btn-suc").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        document.querySelectorAll(".btn-suc").forEach(function(b) {
+          b.className = "btn-suc";
+        });
+        sucursalSeleccionada = btn.dataset.suc;
+        telefonoSeleccionado = btn.dataset.telefono;
+        btn.classList.add("activo-" + sucursalSeleccionada);
+        actualizarBotonWA();
+      });
+    });
+
+    // ══════════════════════════════════════
+    // HABILITAR BOTÓN WHATSAPP
+    // ══════════════════════════════════════
+    function actualizarBotonWA() {
+      const hayProductos = PRODUCTOS.some(function(p) { return carrito[p.id] > 0; });
+      const hayS = sucursalSeleccionada !== null;
+      document.getElementById("btn-whatsapp").disabled = !(hayProductos && hayS);
+    }
+
+    // ══════════════════════════════════════
+    // GENERAR MENSAJE Y ABRIR WHATSAPP
+    // ══════════════════════════════════════
+    document.getElementById("btn-whatsapp").addEventListener("click", function() {
+      let lineas = ["Hola, quisiera hacer el siguiente pedido:", ""];
+      let total = 0;
+
+      PRODUCTOS.forEach(function(p) {
+        if (carrito[p.id] > 0) {
+          const sub = carrito[p.id] * p.precio;
+          lineas.push("· " + p.nombre + ": " + carrito[p.id] + " " + p.unidad + " — ₡" + sub.toLocaleString());
+          total += sub;
+        }
+      });
+
+      lineas.push("");
+      lineas.push("Total estimado: ₡" + total.toLocaleString());
+      lineas.push("Sucursal: " + sucursalSeleccionada);
+      lineas.push("");
+      lineas.push("¿Pueden confirmar disponibilidad? Gracias 🙏");
+
+      const mensaje = lineas.join("\n");
+      const url = "https://wa.me/" + telefonoSeleccionado + "?text=" + encodeURIComponent(mensaje);
+      window.open(url, "_blank");
+    });
+
+    // ══════════════════════════════════════
+    // ARRANQUE
+    // ══════════════════════════════════════
+    cargarProductos();
+
+  </script>
+
+</body>
+</html>
