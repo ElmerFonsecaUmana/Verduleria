@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verduras El Campo</title>
+  <title>Verdulería Coronado - Jardines </title>
   <style>
 
     /* ── RESET Y BASE ── */
@@ -383,7 +383,7 @@
 
   <!-- ── NAVEGACIÓN ── -->
   <nav>
-    <span>🥦 Verduras El Campo</span>
+    <span>🥦 Verdulería Coronad - Jardines </span>
     <a href="#productos">Productos</a>
     <a href="#sucursales">Sucursales</a>
     <a href="#contacto">Contacto</a>
@@ -409,8 +409,8 @@
 
       <div id="selector-sucursal">
         <p>¿A cuál sucursal le pedís?</p>
-        <button class="btn-suc" data-suc="1" data-telefono="50683490373">Sucursal 1</button>
-        <button class="btn-suc" data-suc="2" data-telefono="50688882222">Sucursal 2</button>
+        <button class="btn-suc" data-suc="1" data-telefono="50683490373">Coronado</button>
+        <button class="btn-suc" data-suc="2" data-telefono="50683497025">Jardines</button>
       </div>
 
       <button id="btn-whatsapp" disabled>Enviar pedido por WhatsApp</button>
@@ -422,7 +422,7 @@
     <h2>Nuestras sucursales</h2>
 
     <div class="sucursal sucursal-1">
-      <h3>Sucursal 1</h3>
+      <h3>Coronado</h3>
       <p>📍 100m norte del parque central</p>
       <p>🕐 Lunes a Sábado, 6am – 6pm</p>
       <p>📱 +506 8349-0373</p>
@@ -436,14 +436,14 @@
           loading="lazy">
         </iframe>
       </div>
-      <a class="btn-wa-sucursal" href="https://wa.me/50683490373" target="_blank">WhatsApp Sucursal 1</a>
+      <a class="btn-wa-sucursal" href="https://wa.me/50683490373" target="_blank">WhatsApp Coronado</a>
     </div>
 
     <div class="sucursal sucursal-2">
-      <h3>Sucursal 2</h3>
+      <h3>Jardines</h3>
       <p>📍 Frente al supermercado BM</p>
       <p>🕐 Lunes a Domingo, 7am – 5pm</p>
-      <p>📱 +506 8888-2222</p>
+      <p>📱 +506 8349-7025</p>
       <div class="mapa">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.1!2d-84.0750!3d9.9340!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwNTUnNTQuNCJOIDg0wrAwNCczMC4wIlc!5e0!3m2!1ses!2scr!4v1234567891"
@@ -454,14 +454,14 @@
           loading="lazy">
         </iframe>
       </div>
-      <a class="btn-wa-sucursal" href="https://wa.me/50688882222" target="_blank">WhatsApp Sucursal 2</a>
+      <a class="btn-wa-sucursal" href="https://wa.me/50683497025" target="_blank">WhatsApp Jardines</a>
     </div>
 
   </section>
 
   <!-- ── FOOTER ── -->
   <footer id="contacto">
-    <p>© 2025 Verduras El Campo</p>
+    <p>© 2025 Verdulería Coronado - Jardines</p>
     <p>Escribinos por WhatsApp a cualquiera de nuestras sucursales</p>
   </footer>
 
@@ -545,8 +545,8 @@
       contenedor.innerHTML = PRODUCTOS.map(function(p) {
 
         const badgeTexto = p.sucursal === "ambas" ? "Ambas sucursales"
-                         : p.sucursal === "s1"    ? "Solo Sucursal 1"
-                         :                          "Solo Sucursal 2";
+                         : p.sucursal === "s1"    ? "Solo Coronado"
+                         :                          "Solo Jardines";
 
         const badgeClase = p.sucursal === "ambas" ? "badge-ambas"
                          : p.sucursal === "s1"    ? "badge-s1"
